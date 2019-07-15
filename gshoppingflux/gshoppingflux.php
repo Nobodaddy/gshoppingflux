@@ -1176,7 +1176,7 @@ class GShoppingFlux extends Module
             ),
         );
         $attributes = array_merge($attributes, $this->getShopAttributes($id_lang, $id_shop));
-        $gcat_desc = '<a href="http://www.google.com/support/merchants/bin/answer.py?answer=160081&query=product_type" target="_blank">'.$this->l('See Google Categories').'</a> ';
+ 	$gcat_desc = $this->l('Add either just the category ID or the full path name') . '<br><a href="http://www.google.com/support/merchants/bin/answer.py?answer=160081&query=product_type" target="_blank">' . $this->l('See Google Categories') . '</a> '; ';
         $form_desc = html_entity_decode($this->l('Default: System tries to get the value of the product attribute. If not found, system tries to get the category\'s attribute value. <br> If not found, it tries to get the parent category\'s attribute, and so till the root category. At last, if empty, value is not exported.'));
 
         $fields_form = array(
@@ -1195,6 +1195,7 @@ class GShoppingFlux extends Module
                         'type' => 'text',
                         'label' => $this->l('Matching Google category'),
                         'name' => 'gcategory',
+			'size' => 120,
                         'lang' => true,
                         'desc' => $gcat_desc,
                     ),
