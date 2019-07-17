@@ -1176,7 +1176,7 @@ class GShoppingFlux extends Module
             ),
         );
         $attributes = array_merge($attributes, $this->getShopAttributes($id_lang, $id_shop));
-        $gcat_desc = '<a href="http://www.google.com/support/merchants/bin/answer.py?answer=160081&query=product_type" target="_blank">'.$this->l('See Google Categories').'</a> ';
+        $gcat_desc = $this->l('Add either just the category ID or the full path name') . '<br><a href="https://www.google.com/support/merchants/bin/answer.py?answer=160081&query=product_type" target="_blank">' . $this->l('See Google Categories') . '</a> ';
         $form_desc = html_entity_decode($this->l('Default: System tries to get the value of the product attribute. If not found, system tries to get the category\'s attribute value. <br> If not found, it tries to get the parent category\'s attribute, and so till the root category. At last, if empty, value is not exported.'));
 
         $fields_form = array(
@@ -1189,6 +1189,7 @@ class GShoppingFlux extends Module
                     array(
                         'type' => 'free',
                         'label' => $this->l('Category'),
+			'size' => 120,
                         'name' => 'breadcrumb',
                     ),
                     array(
@@ -1646,7 +1647,8 @@ class GShoppingFlux extends Module
 
         $fields_list = array(
             'id_gcategory' => array(
-                'title' => $this->l('ID'),
+            'title' => $this->l('ID'),
+	    'align' => 'right',
             ),
         );
 
@@ -2443,10 +2445,10 @@ class GShoppingFlux extends Module
         $product['price'] = Tools::ps_round($product['price'], _PS_PRICE_DISPLAY_PRECISION_);
         $product['price_without_reduct'] = Tools::ps_round($product['price_without_reduct'], _PS_PRICE_DISPLAY_PRECISION_);
         if ((float) ($product['price']) < (float) ($product['price_without_reduct'])) {
-            $xml_googleshopping .= '<g:price>'.$product['price_without_reduct'].' '.$currency->iso_code.'</g:price>'."\n";
-            $xml_googleshopping .= '<g:sale_price>'.$product['price'].' '.$currency->iso_code.'</g:sale_price>'."\n";
+            $xml_googleshopping .= '<g:price>'.number_format($product['price_without_reduct'], 2).' '.$currency->iso_code.'</g:price>'."\n";
+            $xml_googleshopping .= '<g:sale_price>' . number_format($product['price'], 2) .' '.$currency->iso_code.'</g:sale_price>'."\n";
         } else {
-            $xml_googleshopping .= '<g:price>'.$product['price'].' '.$currency->iso_code.'</g:price>'."\n";
+            $xml_googleshopping .= '<g:price>' . number_format($product['price'], 2) .' '.$currency->iso_code.'</g:price>'."\n";
         }
 
         $identifier_exists = 0;
